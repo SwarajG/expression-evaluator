@@ -1,0 +1,11 @@
+[
+    {
+        "formula": "2*x+y-z"
+    },
+    {
+        "formula": "a/d*f+5"
+    },
+    {
+        "formula": "5*x/y"
+    }
+]
