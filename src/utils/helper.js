@@ -22,6 +22,14 @@ function isCharBrackets(char) {
   return !!brackets[char];
 }
 
+function isOpenCharBrackets(char) {
+  return brackets[char] === '(';
+}
+
+function isCloseCharBrackets(char) {
+  return brackets[char] === ')';
+}
+
 function isCharInputVariable(char) {
   return !isCharNumber(char) && !isCharBrackets(char) && !isCharOperator(char);
 }
@@ -53,7 +61,10 @@ export {
   isCharNumber,
   isInputValid,
   isCharOperator,
+  isCharBrackets,
   hasSamePrecedence,
+  isOpenCharBrackets,
+  isCloseCharBrackets,
   isCharInputVariable,
   hasHigherPrecedenceOfTop,
   extractInputFromString,

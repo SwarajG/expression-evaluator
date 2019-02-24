@@ -4,7 +4,9 @@ import {
   isCharOperator,
   hasHigherPrecedenceOfTop,
   isCharNumber,
-  hasSamePrecedence
+  hasSamePrecedence,
+  isOpenCharBrackets,
+  isCloseCharBrackets
 } from './helper';
 
 function infixToPostfix(infix) {
@@ -15,6 +17,15 @@ function infixToPostfix(infix) {
     const currentChar = infix[i];
     if (isCharInputVariable(currentChar) || isCharNumber(currentChar)) {
       postfixOutput += currentChar;
+    } else if (isOpenCharBrackets(currentChar)) {
+      stack.push(currentChar);
+    } else if (isCloseCharBrackets(currentChar)) {
+      while(!stack.isEmpty() && stack.top() !== '(') {
+        const topElement = stack.top();
+        postfixOutput += topElement;
+        stack.pop();
+      }
+      stack.pop();
     } else if (isCharOperator(currentChar)) {
       while(!stack.isEmpty() && hasHigherPrecedenceOfTop(stack.top(), currentChar)) {
         postfixOutput += stack.top();

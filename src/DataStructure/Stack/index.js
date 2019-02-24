@@ -24,6 +24,9 @@ class Stack {
   print() {
     const length = this.size();
     const reverseStack = cloneDeep(this.array).reverse();
+    if (reverseStack.length === 0) {
+      return 'Your stack is empty...'
+    }
     for(let i = 0; i < length; i++) {
       console.log(`| ${reverseStack[i]} |`);
     }

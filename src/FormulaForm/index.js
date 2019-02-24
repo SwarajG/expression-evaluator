@@ -20,16 +20,22 @@ const formulaText = css`
 `;
 
 export default function FormulaForm(props) {
-  const { formulas } = props;
+  const { formulas, formData, setFormData, selectedFormId } = props;
   if (formulas.length === 0) {
     return null;
   }
   return (
     <div className={allFormWrapper}>
-      {formulas.map(formula => (
+      {formulas.map((formula, index) => (
         <div key={formula.formula} className={formWrapper}>
           <p className={formulaText}>Formula: {formula.formula}</p>
-          <FormulaEvaluator formula={formula.formula} />
+          <FormulaEvaluator
+            formula={formula.formula}
+            setFormData={setFormData}
+            formData={formData}
+            selectedFormId={selectedFormId}
+            selectedFormulaIndex={index}
+          />
         </div>
       ))}
     </div>

@@ -32,7 +32,7 @@ const answerText = css`
 `;
 
 export default function FormulaEvaluator(props) {
-  const { formula } = props;
+  const { formula, setFormData, formData, selectedFormId, selectedFormulaIndex } = props;
   const [formInputs, setFormInputs] = useState({});
   const [asnwer, setAnswer] = useState('');
   const allInputs = extractInputFromString(formula);
@@ -44,10 +44,26 @@ export default function FormulaEvaluator(props) {
   }, [formInputs]);
 
   const onEvluate = useCallback(() => {
-    if (isInputValid(formInputs, allInputs)) {
+    const isValid = isInputValid(formInputs, allInputs);
+    if (isValid) {
       const postfixExpression = infixToPostfix(formula);
       const finalAnswer = evluatePostfixExpression(postfixExpression, formInputs);
       setAnswer(finalAnswer);
+      const clonedFormData = cloneDeep(formData);
+      const indexData = clonedFormData.findIndex((data) => data.id === selectedFormId);
+      const answers = clonedFormData[indexData].answers || {};
+      answers[selectedFormulaIndex] = {
+        formula,
+        values: formInputs,
+        result: finalAnswer
+      }
+      clonedFormData[indexData] = {
+        id: selectedFormId,
+        answers
+      };
+      setFormData(clonedFormData);
+    } else {
+      alert('Please enter valid inputs...');
     }
   }, [formInputs]);
 

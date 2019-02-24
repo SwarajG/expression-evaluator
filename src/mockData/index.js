@@ -18,5 +18,12 @@ function getInput(id) {
   return promise;
 }
 
+function postDataToServer(formData) {
+  const promise = new Promise((resolve, reject) => {
+    return resolve(formData);
+  });
+  return promise;
+}
 
-export { getInput };
+
+export { getInput, postDataToServer };
